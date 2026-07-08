@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism component */
+.glass-frost {
+  background: rgba(13, 27, 42, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 188, 212, 0.2);
+  box-shadow: inset 0 1px 0 rgba(0, 188, 212, 0.1);
+}
+
+/* Gourmet button hover */
+.gourmet-btn {
+  transition: all 0.2s ease-in-out;
+}
+.gourmet-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(199, 123, 63, 0.4);
+}
+
+/* Tech button hover */
+.tech-btn {
+  transition: all 0.2s ease-in-out;
+}
+.tech-btn:hover {
+  background-color: rgba(0, 188, 212, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
+}
+
+/* Product card hover */
+.product-card-inner {
+  transition: border-color 0.3s ease;
+}
+.product-card:hover .product-card-inner {
+  border-color: #C77B3F;
+}
+.product-img {
+  transition: transform 0.3s ease;
+}
+.product-card:hover .product-img {
+  transform: scale(1.05);
+}
+
+/* Timeline connector */
+.timeline-line {
+  position: absolute;
+  top: 40px;
+  left: 16.66%;
+  width: 66.66%;
+  height: 2px;
+  background: #C77B3F;
+  z-index: 0;
+  display: none;
+}
+@media (min-width: 768px) {
+  .timeline-line {
+    display: block;
+  }
+}
+
+/* Scroll-triggered fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Video overlay */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 27, 42, 0.7);
+  z-index: 1;
+}
+
+/* Mobile nav slide-in */
+.mobile-nav {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+.mobile-nav.open {
+  transform: translateX(0);
+}

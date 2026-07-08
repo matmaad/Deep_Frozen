@@ -1,0 +1,99 @@
+---
+// Navbar component
+---
+
+<nav
+  id="navbar"
+  class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-ice-cyan/20 shadow-sm"
+>
+  <div class="flex justify-between items-center px-5 md:px-16 h-20 max-w-[1280px] mx-auto">
+    <!-- Logo -->
+    <a href="#inicio" class="font-headline-sm text-headline-sm font-bold tracking-tight text-ice-cyan">
+      <img src="/images/LOGO.jpeg" alt="Deep Frozen" class="h-12 w-auto object-contain" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex gap-8 items-center font-body-md text-body-md">
+      <a
+        href="#inicio"
+        class="text-warm-copper font-bold border-b-2 border-warm-copper pb-1 hover:scale-105 transition-transform duration-200"
+      >
+        Inicio
+      </a>
+      <a
+        href="#productos"
+        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+      >
+        Productos
+      </a>
+      <a
+        href="#proceso"
+        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+      >
+        Proceso
+      </a>
+      <a
+        href="#contacto"
+        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+      >
+        Contacto
+      </a>
+      <a
+        href="#contacto"
+        class="bg-warm-copper text-frost-white font-body-sm px-6 py-2 rounded gourmet-btn"
+      >
+        Consultar
+      </a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-ice-cyan"
+      aria-label="Abrir menú"
+    >
+      <span class="material-symbols-outlined text-3xl">menu</span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="mobile-nav fixed top-0 right-0 w-64 h-full bg-surface-container z-50 flex flex-col p-6 gap-6 md:hidden"
+  >
+    <button id="mobile-menu-close" class="text-ice-cyan self-end" aria-label="Cerrar menú">
+      <span class="material-symbols-outlined text-3xl">close</span>
+    </button>
+    <a href="#inicio" class="text-warm-copper font-bold text-lg">Inicio</a>
+    <a href="#productos" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Productos</a>
+    <a href="#proceso" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Proceso</a>
+    <a href="#contacto" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Contacto</a>
+    <a
+      href="#contacto"
+      class="bg-warm-copper text-frost-white font-body-sm px-6 py-3 rounded gourmet-btn text-center mt-4"
+    >
+      Consultar
+    </a>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const menuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.add('open');
+  });
+
+  menuClose?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('open');
+  });
+
+  mobileLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.remove('open');
+    });
+  });
+</script>

@@ -1,0 +1,97 @@
+---
+// Contact section — Formspree form + contact info
+---
+
+<section
+  id="contacto"
+  class="py-[120px] bg-gradient-to-t from-surface-container to-deep-navy text-on-surface px-5 md:px-16"
+>
+  <div class="max-w-[1280px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Form -->
+      <div class="glass-frost p-8 rounded-xl border border-ice-cyan/20 bg-surface-container-lowest">
+        <h2 class="font-headline-lg text-headline-lg text-frost-white mb-4">Haz tu Pedido</h2>
+        <form
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          class="flex flex-col gap-4"
+        >
+          <div>
+            <label class="block font-body-sm text-pale-blue mb-2" for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="Tu nombre"
+              required
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+            />
+          </div>
+          <div>
+            <label class="block font-body-sm text-pale-blue mb-2" for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="tu@email.com"
+              required
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+            />
+          </div>
+          <div>
+            <label class="block font-body-sm text-pale-blue mb-2" for="mensaje">Mensaje</label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              placeholder="¿Qué productos te interesan?"
+              rows="4"
+              required
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="bg-warm-copper text-frost-white font-body-md py-3 rounded gourmet-btn mt-2"
+          >
+            Enviar Mensaje
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="flex flex-col gap-4 justify-center md:pl-8">
+        <h3 class="font-headline-sm text-headline-sm text-ice-cyan mb-2">Contacto Directo</h3>
+
+        <div class="flex items-center gap-4 text-pale-blue">
+          <span class="material-symbols-outlined text-warm-copper">location_on</span>
+          <p class="font-body-md">Av. Isidoro del Solar 210, Talca</p>
+        </div>
+
+        <div class="flex items-center gap-4 text-pale-blue">
+          <span class="material-symbols-outlined text-warm-copper">call</span>
+          <p class="font-body-md">+56 9 7878 7240</p>
+        </div>
+
+        <a
+          href="https://wa.me/56978787240?text=Hola%2C%20me%20interesa%20conocer%20sus%20productos"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 text-pale-blue hover:text-ice-cyan transition-colors group"
+        >
+          <span class="material-symbols-outlined text-warm-copper group-hover:text-ice-cyan transition-colors">chat</span>
+          <p class="font-body-md">WhatsApp</p>
+        </a>
+
+        <a
+          href="https://instagram.com/deepfrozen_cl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-4 text-pale-blue hover:text-ice-cyan transition-colors group"
+        >
+          <span class="material-symbols-outlined text-warm-copper group-hover:text-ice-cyan transition-colors">photo_camera</span>
+          <p class="font-body-md">@deepfrozen_cl</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

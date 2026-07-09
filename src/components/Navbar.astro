@@ -16,25 +16,36 @@
     <div class="hidden md:flex gap-8 items-center font-body-md text-body-md">
       <a
         href="#inicio"
-        class="text-warm-copper font-bold border-b-2 border-warm-copper pb-1 hover:scale-105 transition-transform duration-200"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Inicio
       </a>
       <a
+        href="#beneficios"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+      >
+        Beneficios
+      </a>
+      <a
         href="#productos"
-        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Productos
       </a>
       <a
         href="#proceso"
-        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Proceso
       </a>
       <a
         href="#contacto"
-        class="text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Contacto
       </a>
@@ -64,10 +75,11 @@
     <button id="mobile-menu-close" class="text-ice-cyan self-end" aria-label="Cerrar menú">
       <span class="material-symbols-outlined text-3xl">close</span>
     </button>
-    <a href="#inicio" class="text-warm-copper font-bold text-lg">Inicio</a>
-    <a href="#productos" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Productos</a>
-    <a href="#proceso" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Proceso</a>
-    <a href="#contacto" class="text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Contacto</a>
+    <a href="#inicio" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Inicio</a>
+    <a href="#beneficios" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Beneficios</a>
+    <a href="#productos" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Productos</a>
+    <a href="#proceso" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Proceso</a>
+    <a href="#contacto" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Contacto</a>
     <a
       href="#contacto"
       class="bg-warm-copper text-frost-white font-body-sm px-6 py-3 rounded gourmet-btn text-center mt-4"
@@ -78,6 +90,7 @@
 </nav>
 
 <script>
+  // Mobile menu toggle
   const menuBtn = document.getElementById('mobile-menu-btn');
   const menuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -96,4 +109,35 @@
       mobileMenu?.classList.remove('open');
     });
   });
+
+  // Active link highlighting on scroll
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav-link[data-nav]');
+
+  function updateActiveLink() {
+    let current = '';
+    const scrollY = window.scrollY + 120;
+
+    sections.forEach((section) => {
+      const sectionTop = (section as HTMLElement).offsetTop;
+      const sectionHeight = (section as HTMLElement).offsetHeight;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        current = section.getAttribute('id') || '';
+      }
+    });
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href')?.replace('#', '') || '';
+      if (href === current) {
+        link.classList.add('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
+        link.classList.remove('text-on-surface-variant');
+      } else {
+        link.classList.remove('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
+        link.classList.add('text-on-surface-variant');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink);
+  updateActiveLink();
 </script>

@@ -16,3 +16,7 @@ Thumbs.db
 .vscode/
 .idea/
 .vercel
+
+# Large files (use Vercel CDN or external hosting)
+public/videos/*.mp4
+public/images/Video Project 1.mp4

@@ -105,15 +105,13 @@ section[id], header[id] {
   transform: translateX(0);
 }
 
-/* Testimonial card — glassmorphism */
+/* Testimonial card — glassmorphism with visible contrast */
 .testimonial-card {
-  background: rgba(13, 27, 42, 0.4);
+  background: rgba(53, 58, 60, 0.65);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  position: relative;
-  overflow: hidden;
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }

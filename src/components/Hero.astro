@@ -6,6 +6,13 @@
   id="inicio"
   class="relative min-h-screen flex items-center justify-center pt-14 overflow-hidden bg-deep-navy"
 >
+  <!-- Fallback Image (behind video) -->
+  <img
+    src="/images/PROCESS_MIX.png"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover z-[-1]"
+  />
+
   <!-- Background Video -->
   <video
     autoplay
@@ -16,13 +23,6 @@
   >
     <source src="/videos/Steak_vacuum_sealed.mp4" type="video/mp4" />
   </video>
-
-  <!-- Fallback Image -->
-  <img
-    src="/images/PROCESS_MIX.png"
-    alt=""
-    class="absolute inset-0 w-full h-full object-cover z-0"
-  />
 
   <!-- Dark Overlay -->
   <div class="hero-video-overlay"></div>

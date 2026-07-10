@@ -1,19 +1,28 @@
 ---
-// Hero section with static background image
+// Hero section with video background
 ---
 
 <header
   id="inicio"
   class="relative min-h-screen flex items-center justify-center pt-14 overflow-hidden bg-deep-navy"
 >
-  <!-- Background Image -->
-  <div class="absolute inset-0 z-0">
-    <img
-      src="/images/PROCESS_MIX.png"
-      alt="Proceso Deep Frozen"
-      class="w-full h-full object-cover"
-    />
-  </div>
+  <!-- Background Video -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute inset-0 w-full h-full object-cover z-0"
+  >
+    <source src="/videos/Steak_vacuum_sealed.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Fallback Image -->
+  <img
+    src="/images/PROCESS_MIX.png"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover z-0"
+  />
 
   <!-- Dark Overlay -->
   <div class="hero-video-overlay"></div>

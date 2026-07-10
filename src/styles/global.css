@@ -104,3 +104,27 @@ section[id], header[id] {
 .mobile-nav.open {
   transform: translateX(0);
 }
+
+/* Testimonial card — high contrast */
+.testimonial-card {
+  background: linear-gradient(145deg, rgba(15, 20, 22, 0.95) 0%, rgba(13, 27, 42, 0.9) 50%, rgba(15, 20, 22, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(199, 123, 63, 0.25);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(199, 123, 63, 0.15),
+    inset 0 -1px 0 rgba(0, 188, 212, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C77B3F, #00BCD4, transparent);
+  opacity: 0.8;
+}

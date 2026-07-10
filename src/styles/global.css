@@ -60,7 +60,7 @@ section[id], header[id] {
   left: 16.66%;
   width: 66.66%;
   height: 2px;
-  background: linear-gradient(90deg, #00BCD4 0%, #00BCD4 50%, #C77B3F 100%);
+  background: linear-gradient(90deg, #00BCD4 0%, #00BCD4 33%, #C77B3F 66%, #C77B3F 100%);
   z-index: 0;
   display: none;
 }

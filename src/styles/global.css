@@ -7,6 +7,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Offset sections below fixed navbar when navigating via anchor links */
+section[id], header[id] {
+  scroll-margin-top: 56px;
+}
+
 /* Glassmorphism component */
 .glass-frost {
   background: rgba(13, 27, 42, 0.6);

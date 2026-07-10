@@ -51,7 +51,7 @@ html {
 /* Timeline connector */
 .timeline-line {
   position: absolute;
-  top: 40px;
+  top: 28px;
   left: 16.66%;
   width: 66.66%;
   height: 2px;
@@ -62,6 +62,13 @@ html {
 @media (min-width: 768px) {
   .timeline-line {
     display: block;
+  }
+}
+
+/* Mobile: allow normal scrolling on non-hero sections */
+@media (max-width: 767px) {
+  section:not(#inicio) {
+    min-height: auto !important;
   }
 }
 

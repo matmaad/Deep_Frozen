@@ -4,54 +4,54 @@
 
 <section
   id="contacto"
-  class="py-[120px] bg-gradient-to-t from-surface-container to-deep-navy text-on-surface px-5 md:px-16"
+  class="min-h-[calc(100vh-56px)] py-8 flex flex-col justify-center bg-gradient-to-t from-surface-container to-deep-navy text-on-surface px-5 md:px-16"
 >
   <div class="max-w-[1280px] mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
       <!-- Form -->
-      <div class="glass-frost p-8 rounded-xl border border-ice-cyan/20 bg-surface-container-lowest">
-        <h2 class="font-headline-lg text-headline-lg text-frost-white mb-4">Haz tu Pedido</h2>
+      <div class="glass-frost p-5 rounded-xl border border-ice-cyan/20 bg-surface-container-lowest">
+        <h2 class="font-headline-lg text-headline-lg text-frost-white mb-3">Haz tu Pedido</h2>
         <form
           action="https://formspree.io/f/mzdlnbaj"
           method="POST"
-          class="flex flex-col gap-4"
+          class="flex flex-col gap-3"
         >
           <div>
-            <label class="block font-body-sm text-pale-blue mb-2" for="nombre">Nombre</label>
+            <label class="block font-body-sm text-pale-blue mb-1" for="nombre">Nombre</label>
             <input
               type="text"
               id="nombre"
               name="nombre"
               placeholder="Tu nombre"
               required
-              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-2 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
             />
           </div>
           <div>
-            <label class="block font-body-sm text-pale-blue mb-2" for="email">Email</label>
+            <label class="block font-body-sm text-pale-blue mb-1" for="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               placeholder="tu@email.com"
               required
-              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-2 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
             />
           </div>
           <div>
-            <label class="block font-body-sm text-pale-blue mb-2" for="mensaje">Mensaje</label>
+            <label class="block font-body-sm text-pale-blue mb-1" for="mensaje">Mensaje</label>
             <textarea
               id="mensaje"
               name="mensaje"
               placeholder="¿Qué productos te interesan?"
-              rows="4"
+              rows="3"
               required
-              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-3 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
+              class="w-full bg-deep-navy border border-ice-cyan/30 text-frost-white rounded px-4 py-2 focus:outline-none focus:border-ice-cyan focus:ring-1 focus:ring-ice-cyan transition-colors"
             ></textarea>
           </div>
           <button
             type="submit"
-            class="bg-warm-copper text-frost-white font-body-md py-3 rounded gourmet-btn mt-2"
+            class="bg-warm-copper text-deep-navy font-body-md py-2 rounded gourmet-btn mt-1"
           >
             Enviar Mensaje
           </button>
@@ -59,8 +59,8 @@
       </div>
 
       <!-- Contact Info -->
-      <div class="flex flex-col gap-4 justify-center md:pl-8">
-        <h3 class="font-headline-sm text-headline-sm text-ice-cyan mb-2">Contacto Directo</h3>
+      <div class="flex flex-col gap-3 justify-center md:pl-8">
+        <h3 class="font-headline-sm text-headline-sm text-ice-cyan mb-1">Contacto Directo</h3>
 
         <div class="flex items-center gap-4 text-pale-blue">
           <span class="material-symbols-outlined text-warm-copper">location_on</span>

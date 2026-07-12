@@ -18,33 +18,163 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0D1B2A" />
 
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.deepfrozen.cl" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.deepfrozen.cl" />
     <meta property="og:locale" content="es_CL" />
+    <meta property="og:image" content="https://www.deepfrozen.cl/images/PIZZA.webp" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="434" />
+    <meta property="og:image:alt" content="Deep Frozen — Pizza de masa madre ultracongelada" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.deepfrozen.cl/images/PIZZA.webp" />
 
     <title>{title}</title>
 
-    <!-- Google Fonts: Montserrat + Inter -->
+    <!-- Google Fonts: Montserrat + Inter + Bebas Neue (deferred) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-    <!-- Material Symbols Outlined -->
+    <!-- Material Symbols Outlined (deferred) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="/images/LOGO.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD: LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Deep Frozen",
+        "description": "Ultracongelados gourmet sellados al vacío. Pizzas de masa madre, cinnamon rolls y burgers premium.",
+        "url": "https://www.deepfrozen.cl",
+        "telephone": "+56978787240",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Isidoro del Solar 210",
+          "addressLocality": "Talca",
+          "addressRegion": "Maule",
+          "postalCode": "3460000",
+          "addressCountry": "CL"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -35.4264,
+          "longitude": -71.6554
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "sameAs": [
+          "https://instagram.com/deepfrozen_cl"
+        ],
+        "image": "https://www.deepfrozen.cl/images/PIZZA.webp",
+        "priceRange": "$$"
+      }
+    </script>
+
+    <!-- JSON-LD: FAQPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Hacen envíos a otras regiones?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, realizamos envíos a todo Chile. Contacta por WhatsApp para coordinar despacho a tu región."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto duran congelados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hasta 12 meses congelados, gracias al sellado al vacío que bloquea el oxígeno."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo se preparan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Directo del freezer al horno o sartén, sin descongelar. En 10-15 minutos tienes un plato con calidad de restaurante."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué valor tienen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Consulta precios por WhatsApp o en el formulario. Ofrecemos descuentos para pedidos al por mayor."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+    <!-- Hidden SVG filters for frozen/grunge logo effect -->
+    <svg aria-hidden="true" style="position:absolute;width:0;height:0">
+      <defs>
+        <filter id="frozen-glow" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" seed="5" result="noise" />
+          <feColorMatrix type="saturate" values="0" in="noise" result="gray" />
+          <feComponentTransfer in="gray" result="threshold">
+            <feFuncA type="discrete" tableValues="0 0 0 0 0 0 1 1" />
+          </feComponentTransfer>
+          <feComposite in="SourceGraphic" in2="threshold" operator="in" result="text-mask" />
+          <feBlend in="SourceGraphic" in2="text-mask" mode="multiply" />
+        </filter>
+        <filter id="frozen-glow-lg" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" seed="5" result="noise" />
+          <feColorMatrix type="saturate" values="0" in="noise" result="gray" />
+          <feComponentTransfer in="gray" result="threshold">
+            <feFuncA type="discrete" tableValues="0 0 0 0 0 0 1 1" />
+          </feComponentTransfer>
+          <feComposite in="SourceGraphic" in2="threshold" operator="in" result="text-mask" />
+          <feBlend in="SourceGraphic" in2="text-mask" mode="multiply" />
+        </filter>
+      </defs>
+    </svg>
     <slot />
   </body>
 </html>

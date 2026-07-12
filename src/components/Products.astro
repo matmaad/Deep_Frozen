@@ -2,6 +2,57 @@
 // Product catalog — 3 product cards
 ---
 
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Pizza de Masa Madre",
+    "description": "Fermentación lenta, ingredientes premium. Lista en 10 minutos al horno.",
+    "image": "https://www.deepfrozen.cl/images/PIZZA.webp",
+    "brand": { "@type": "Brand", "name": "Deep Frozen" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "CLP",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "Deep Frozen" }
+    }
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Cinnamon Rolls",
+    "description": "Esponjosos y llenos de sabor. Hornea directamente desde congelado para un desayuno perfecto.",
+    "image": "https://www.deepfrozen.cl/images/Cinnamon.webp",
+    "brand": { "@type": "Brand", "name": "Deep Frozen" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "CLP",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "Deep Frozen" }
+    }
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Burgers Premium",
+    "description": "Mezcla exclusiva de cortes, jugosas y listas para la parrilla sin descongelar.",
+    "image": "https://www.deepfrozen.cl/images/Burger.webp",
+    "brand": { "@type": "Brand", "name": "Deep Frozen" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "CLP",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "Deep Frozen" }
+    }
+  }
+</script>
+
 <section id="productos" class="min-h-[calc(100vh-56px)] py-12 flex flex-col justify-center bg-deep-navy px-5 md:px-16">
   <div class="max-w-[1280px] mx-auto">
     <h2 class="font-headline-lg text-headline-lg text-frost-white text-center mb-4">
@@ -15,8 +66,12 @@
         <div class="relative z-10 p-3 h-full flex flex-col">
           <div class="overflow-hidden rounded-lg mb-2 aspect-[16/10] bg-surface-dim">
             <img
-              src="/images/PIZZA.png"
+              src="/images/PIZZA-400.webp"
+              srcset="/images/PIZZA-400.webp 400w, /images/PIZZA.webp 800w"
+              sizes="(max-width: 768px) 100vw, 33vw"
               alt="Pizza de Masa Madre"
+              width="800"
+              height="434"
               class="w-full h-full object-cover product-img"
               loading="lazy"
             />
@@ -42,8 +97,12 @@
         <div class="relative z-10 p-3 h-full flex flex-col">
           <div class="overflow-hidden rounded-lg mb-2 aspect-[16/10] bg-surface-dim">
             <img
-              src="/images/Cinnamon.png"
+              src="/images/Cinnamon-400.webp"
+              srcset="/images/Cinnamon-400.webp 400w, /images/Cinnamon.webp 800w"
+              sizes="(max-width: 768px) 100vw, 33vw"
               alt="Cinnamon Rolls"
+              width="800"
+              height="434"
               class="w-full h-full object-cover product-img"
               loading="lazy"
             />
@@ -69,8 +128,12 @@
         <div class="relative z-10 p-3 h-full flex flex-col">
           <div class="overflow-hidden rounded-lg mb-2 aspect-[16/10] bg-surface-dim">
             <img
-              src="/images/Burger.png"
+              src="/images/Burger-400.webp"
+              srcset="/images/Burger-400.webp 400w, /images/Burger.webp 800w"
+              sizes="(max-width: 768px) 100vw, 33vw"
               alt="Burgers Premium"
+              width="800"
+              height="434"
               class="w-full h-full object-cover product-img"
               loading="lazy"
             />

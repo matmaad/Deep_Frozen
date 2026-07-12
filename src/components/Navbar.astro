@@ -4,12 +4,12 @@
 
 <nav
   id="navbar"
-  class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-ice-cyan/20 shadow-sm"
+  class="fixed top-0 w-full z-50 bg-surface/80 border-b border-ice-cyan/20 shadow-sm md:backdrop-blur-md"
 >
   <div class="flex justify-between items-center px-5 md:px-16 h-14 max-w-[1280px] mx-auto">
     <!-- Logo -->
-    <a href="#inicio" class="font-headline-sm text-headline-sm font-bold tracking-tight text-ice-cyan">
-      <img src="/images/LOGO.png" alt="Deep Frozen" class="h-5 w-auto object-contain" />
+    <a href="#inicio" class="text-lg leading-none">
+      <span class="logo-text">DEEP FROZEN</span>
     </a>
 
     <!-- Desktop Nav -->
@@ -43,17 +43,17 @@
         Proceso
       </a>
       <a
-        href="#contacto"
+        href="#testimonios"
         data-nav
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
-        Contacto
+        Testimonios
       </a>
       <a
         href="#contacto"
         class="bg-warm-copper text-deep-navy font-body-sm px-4 py-1.5 rounded gourmet-btn"
       >
-        Consultar
+        Contacto
       </a>
     </div>
 
@@ -67,41 +67,44 @@
     </button>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu (dropdown below navbar) -->
   <div
     id="mobile-menu"
-    class="mobile-nav fixed top-0 right-0 w-64 h-full bg-surface-container z-50 flex flex-col p-6 gap-6 md:hidden"
+    class="mobile-nav fixed top-14 left-0 w-full bg-surface/95 backdrop-blur-md border-b border-ice-cyan/20 z-50 flex flex-col md:hidden"
   >
-    <button id="mobile-menu-close" class="text-ice-cyan self-end" aria-label="Cerrar menú">
-      <span class="material-symbols-outlined text-3xl">close</span>
-    </button>
-    <a href="#inicio" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Inicio</a>
-    <a href="#beneficios" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Beneficios</a>
-    <a href="#productos" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Productos</a>
-    <a href="#proceso" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Proceso</a>
-    <a href="#contacto" class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors text-lg">Contacto</a>
-    <a
-      href="#contacto"
-      class="bg-warm-copper text-deep-navy font-body-sm px-6 py-3 rounded gourmet-btn text-center mt-4"
-    >
-      Consultar
-    </a>
+    <div class="flex flex-col px-5 py-4 gap-1">
+      <a href="#inicio" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Inicio</a>
+      <a href="#beneficios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Beneficios</a>
+      <a href="#productos" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Productos</a>
+      <a href="#proceso" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Proceso</a>
+      <a href="#testimonios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Testimonios</a>
+      <a
+        href="#contacto"
+        class="bg-warm-copper text-deep-navy font-body-md py-2.5 rounded gourmet-btn text-center mt-2 tracking-wide uppercase"
+        data-mobile-link
+      >
+        Contacto
+      </a>
+    </div>
   </div>
 </nav>
 
 <script>
   // Mobile menu toggle
   const menuBtn = document.getElementById('mobile-menu-btn');
-  const menuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  const mobileLinks = mobileMenu?.querySelectorAll('[data-mobile-link]');
 
   menuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.add('open');
-  });
-
-  menuClose?.addEventListener('click', () => {
-    mobileMenu?.classList.remove('open');
+    mobileMenu?.classList.toggle('open');
+    const icon = menuBtn.querySelector('.material-symbols-outlined');
+    if (mobileMenu?.classList.contains('open')) {
+      if (icon) icon.textContent = 'close';
+      menuBtn.setAttribute('aria-label', 'Cerrar menú');
+    } else {
+      if (icon) icon.textContent = 'menu';
+      menuBtn.setAttribute('aria-label', 'Abrir menú');
+    }
   });
 
   mobileLinks?.forEach((link) => {
@@ -110,34 +113,31 @@
     });
   });
 
-  // Active link highlighting on scroll
+  // Active link highlighting via IntersectionObserver (no forced reflow)
   const sections = document.querySelectorAll('section[id], header[id]');
   const navLinks = document.querySelectorAll('.nav-link[data-nav]');
+  let currentId = '';
 
-  function updateActiveLink() {
-    let current = '';
-    const scrollY = window.scrollY + 120;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          currentId = entry.target.getAttribute('id') || '';
+        }
+      });
+      navLinks.forEach((link) => {
+        const href = link.getAttribute('href')?.replace('#', '') || '';
+        if (href === currentId) {
+          link.classList.add('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
+          link.classList.remove('text-on-surface-variant');
+        } else {
+          link.classList.remove('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
+          link.classList.add('text-on-surface-variant');
+        }
+      });
+    },
+    { rootMargin: '-20% 0px -60% 0px' }
+  );
 
-    sections.forEach((section) => {
-      const sectionTop = (section as HTMLElement).offsetTop;
-      const sectionHeight = (section as HTMLElement).offsetHeight;
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        current = section.getAttribute('id') || '';
-      }
-    });
-
-    navLinks.forEach((link) => {
-      const href = link.getAttribute('href')?.replace('#', '') || '';
-      if (href === current) {
-        link.classList.add('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
-        link.classList.remove('text-on-surface-variant');
-      } else {
-        link.classList.remove('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
-        link.classList.add('text-on-surface-variant');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', updateActiveLink);
-  updateActiveLink();
+  sections.forEach((section) => observer.observe(section));
 </script>

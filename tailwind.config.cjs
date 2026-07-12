@@ -51,6 +51,7 @@ module.exports = {
         'on-error-container': '#ffdad6',
       },
       fontFamily: {
+        'logo': ['Bebas Neue', 'sans-serif'],
         'display-lg': ['Montserrat'],
         'headline-lg': ['Montserrat'],
         'headline-lg-mobile': ['Montserrat'],

@@ -1,0 +1,260 @@
+---
+// Cart slide-out drawer
+---
+
+<!-- Cart overlay -->
+<div id="cart-overlay" class="fixed inset-0 bg-black/60 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+<!-- Cart drawer -->
+<aside
+  id="cart-drawer"
+  class="fixed top-0 right-0 h-full w-full max-w-md z-50 bg-surface border-l border-ice-cyan/20 transform translate-x-full transition-transform duration-300 flex flex-col"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-4 border-b border-ice-cyan/10">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-ice-cyan">shopping_cart</span>
+      <h2 class="font-headline-sm text-headline-sm text-frost-white">Tu Carrito</h2>
+    </div>
+    <button id="close-cart" class="text-pale-blue hover:text-ice-cyan transition-colors">
+      <span class="material-symbols-outlined text-2xl">close</span>
+    </button>
+  </div>
+
+  <!-- Cart items -->
+  <div id="cart-items" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3">
+    <!-- Items rendered by JS -->
+  </div>
+
+  <!-- Empty state -->
+  <div id="cart-empty" class="flex-1 flex flex-col items-center justify-center text-center px-5">
+    <span class="material-symbols-outlined text-5xl text-pale-blue/30 mb-3">shopping_cart</span>
+    <p class="text-pale-blue/60 font-body-md">Tu carrito está vacío</p>
+    <a href="/menu" class="text-ice-cyan text-sm mt-2 hover:underline">Ver menú</a>
+  </div>
+
+  <!-- Footer -->
+  <div id="cart-footer" class="border-t border-ice-cyan/10 px-5 py-4 hidden">
+    <!-- Subtotal -->
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-pale-blue font-body-md">Subtotal</span>
+      <span id="cart-subtotal" class="text-frost-white font-semibold text-lg">$0</span>
+    </div>
+
+    <!-- Wholesale unlock indicator -->
+    <div id="bulk-discount" class="hidden mb-3 p-3 rounded-lg bg-ice-cyan/10 border border-ice-cyan/20">
+      <div class="flex items-center gap-2 text-ice-cyan text-sm font-semibold mb-1">
+        <span class="material-symbols-outlined text-xl">local_offer</span>
+        Precios por mayor desbloqueados
+      </div>
+      <p class="text-pale-blue/80 text-xs">
+        Compra supera los $100.000 → se aplican <span class="text-ice-cyan font-semibold">precios mayoristas</span>
+      </p>
+      <div class="flex justify-between items-center mt-2 text-sm">
+        <span class="text-pale-blue">Total con precios por mayor:</span>
+        <span id="cart-discounted" class="text-ice-cyan font-semibold">$0</span>
+      </div>
+    </div>
+
+    <!-- Progress to bulk -->
+    <div id="bulk-progress" class="mb-3">
+      <div class="flex justify-between text-xs text-pale-blue/60 mb-1">
+        <span>Progreso al por mayor</span>
+        <span id="bulk-progress-text">$0 / $100.000</span>
+      </div>
+      <div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+        <div id="bulk-progress-bar" class="h-full bg-ice-cyan/50 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Order button -->
+    <button
+      id="order-btn"
+      class="w-full bg-warm-copper text-deep-navy font-body-md py-3 rounded gourmet-btn text-center font-semibold flex items-center justify-center gap-2"
+    >
+      <span class="material-symbols-outlined text-xl">send</span>
+      Solicitar Pedido
+    </button>
+    <p class="text-pale-blue/50 text-xs text-center mt-2">
+      Te contactaremos por WhatsApp para confirmar el pedido y coordinar el pago.
+    </p>
+  </div>
+</aside>
+
+<script>
+  const BULK_THRESHOLD = 100000;
+
+  const drawer = document.getElementById('cart-drawer');
+  const overlay = document.getElementById('cart-overlay');
+  const itemsContainer = document.getElementById('cart-items');
+  const emptyState = document.getElementById('cart-empty');
+  const footer = document.getElementById('cart-footer');
+  const subtotalEl = document.getElementById('cart-subtotal');
+  const discountedEl = document.getElementById('cart-discounted');
+  const bulkDiscount = document.getElementById('bulk-discount');
+  const bulkProgressText = document.getElementById('bulk-progress-text');
+  const bulkProgressBar = document.getElementById('bulk-progress-bar');
+  const orderBtn = document.getElementById('order-btn');
+
+  function formatPrice(price: number): string {
+    return '$' + price.toLocaleString('es-CL');
+  }
+
+  type CartItem = {id: string; name: string; price: number; wholesalePrice: number; image: string; quantity: number};
+
+  function getCart(): CartItem[] {
+    return JSON.parse(localStorage.getItem('deepfrozen-cart') || '[]');
+  }
+
+  function saveCart(cart: CartItem[]) {
+    localStorage.setItem('deepfrozen-cart', JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const cart = getCart();
+
+    // Calculate retail total (sum of retail prices)
+    const retailTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const hasWholesale = retailTotal >= BULK_THRESHOLD;
+
+    // Calculate wholesale total (sum of wholesale prices)
+    const wholesaleTotal = hasWholesale
+      ? cart.reduce((sum, item) => sum + item.wholesalePrice * item.quantity, 0)
+      : retailTotal;
+
+    const activePrice = hasWholesale ? 'wholesale' : 'retail';
+
+    if (cart.length === 0) {
+      emptyState.classList.remove('hidden');
+      itemsContainer.classList.add('hidden');
+      footer.classList.add('hidden');
+    } else {
+      emptyState.classList.add('hidden');
+      itemsContainer.classList.remove('hidden');
+      footer.classList.remove('hidden');
+    }
+
+    itemsContainer.innerHTML = cart.map((item) => {
+      const unitPrice = hasWholesale ? item.wholesalePrice : item.price;
+      return `
+      <div class="glass-frost rounded-lg p-3 flex gap-3">
+        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg shrink-0" />
+        <div class="flex-1 min-w-0">
+          <h4 class="text-frost-white font-body-sm font-semibold truncate">${item.name}</h4>
+          <p class="text-warm-copper text-sm">${formatPrice(unitPrice)}</p>
+          <div class="flex items-center gap-2 mt-1">
+            <button class="qty-btn text-pale-blue hover:text-ice-cyan transition-colors" data-action="decrease" data-id="${item.id}">
+              <span class="material-symbols-outlined text-lg">remove</span>
+            </button>
+            <span class="text-frost-white text-sm min-w-[20px] text-center">${item.quantity}</span>
+            <button class="qty-btn text-pale-blue hover:text-ice-cyan transition-colors" data-action="increase" data-id="${item.id}">
+              <span class="material-symbols-outlined text-lg">add</span>
+            </button>
+            <button class="ml-auto text-pale-blue/50 hover:text-red-400 transition-colors" data-action="remove" data-id="${item.id}">
+              <span class="material-symbols-outlined text-lg">delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    }).join('');
+
+    subtotalEl.textContent = formatPrice(retailTotal);
+
+    if (hasWholesale) {
+      bulkDiscount.classList.remove('hidden');
+      discountedEl.textContent = formatPrice(wholesaleTotal);
+      bulkProgressText.textContent = '¡Desbloqueado!';
+      bulkProgressBar.style.width = '100%';
+    } else {
+      bulkDiscount.classList.add('hidden');
+      const progress = Math.min((retailTotal / BULK_THRESHOLD) * 100, 100);
+      bulkProgressText.textContent = formatPrice(retailTotal) + ' / $100.000';
+      bulkProgressBar.style.width = progress + '%';
+    }
+
+    // Update navbar badge
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cart-badge');
+    if (badge) {
+      badge.textContent = String(totalItems);
+      badge.classList.toggle('hidden', totalItems === 0);
+    }
+  }
+
+  function openDrawer() {
+    drawer.classList.remove('translate-x-full');
+    overlay.classList.remove('hidden');
+    requestAnimationFrame(() => overlay.classList.remove('opacity-0'));
+    document.body.style.overflow = 'hidden';
+    renderCart();
+  }
+
+  function closeDrawer() {
+    drawer.classList.add('translate-x-full');
+    overlay.classList.add('opacity-0');
+    setTimeout(() => overlay.classList.add('hidden'), 300);
+    document.body.style.overflow = '';
+  }
+
+  // Open/close
+  document.getElementById('cart-icon-btn')?.addEventListener('click', openDrawer);
+  document.getElementById('close-cart')?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+
+  // Cart quantity controls (event delegation)
+  itemsContainer?.addEventListener('click', (e) => {
+    const target = (e.target as HTMLElement).closest('[data-action]') as HTMLElement;
+    if (!target) return;
+
+    const action = target.getAttribute('data-action');
+    const id = target.getAttribute('data-id');
+    const cart = getCart();
+    const idx = cart.findIndex((item) => item.id === id);
+
+    if (idx === -1) return;
+
+    if (action === 'increase') {
+      cart[idx].quantity += 1;
+    } else if (action === 'decrease') {
+      cart[idx].quantity -= 1;
+      if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+    } else if (action === 'remove') {
+      cart.splice(idx, 1);
+    }
+
+    saveCart(cart);
+    renderCart();
+  });
+
+  // Order via WhatsApp
+  orderBtn?.addEventListener('click', () => {
+    const cart = getCart();
+    if (cart.length === 0) return;
+
+    const retailTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const hasWholesale = retailTotal >= BULK_THRESHOLD;
+
+    let msg = 'Hola, me gustaría hacer un pedido:\n\n';
+    cart.forEach((item) => {
+      const unitPrice = hasWholesale ? item.wholesalePrice : item.price;
+      msg += `- ${item.name} x${item.quantity} = ${formatPrice(unitPrice * item.quantity)}\n`;
+    });
+
+    if (hasWholesale) {
+      const wholesaleTotal = cart.reduce((sum, item) => sum + item.wholesalePrice * item.quantity, 0);
+      msg += `\nTotal (precios por mayor): ${formatPrice(wholesaleTotal)}`;
+    } else {
+      msg += `\nTotal: ${formatPrice(retailTotal)}`;
+    }
+
+    const url = `https://wa.me/56978787240?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  });
+
+  // Listen for cart updates from MenuProducts
+  window.addEventListener('cart-updated', renderCart);
+
+  // Initial render
+  renderCart();
+</script>

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "pan-de-papa",
+    "name": "Pan de Papa",
+    "description": "Pan artesanal relleno de papa cremosa, hierbas frescas y queso gratinado.",
+    "price": 4990,
+    "wholesalePrice": 4240,
+    "image": "/images/PROCESS_1.webp",
+    "image400": "/images/PROCESS_1-400.webp",
+    "category": "Bakery",
+    "tag": "Ultracongelado + Vacío",
+    "badge": null
+  },
+  {
+    "id": "pizza-masa-madre",
+    "name": "Pizza de Masa Madre",
+    "description": "Masa fermentada 48h, salsa de tomate San Marzano, mozzarella de bufala y albahaca fresca.",
+    "price": 12990,
+    "wholesalePrice": 11040,
+    "image": "/images/PIZZA.webp",
+    "image400": "/images/PIZZA-400.webp",
+    "category": "Bakery",
+    "tag": "Ultracongelado + Vacío",
+    "badge": "Popular"
+  },
+  {
+    "id": "cinnamon-rolls",
+    "name": "Cinnamon Rolls",
+    "description": "Rolls de canela con glaseado de queso crema, masa esponjosa y canela de Ceilán.",
+    "price": 8990,
+    "wholesalePrice": 7640,
+    "image": "/images/Cinnamon.webp",
+    "image400": "/images/Cinnamon-400.webp",
+    "category": "Bakery",
+    "tag": "Ultracongelado + Vacío",
+    "badge": null
+  },
+  {
+    "id": "hamburguesa-premium",
+    "name": "Hamburguesa Premium",
+    "description": "Pan brioche artesanal, carne 100% vacuno premium, cheddar derretido y cebolla caramelizada.",
+    "price": 9990,
+    "wholesalePrice": 8490,
+    "image": "/images/Burger.webp",
+    "image400": "/images/Burger-400.webp",
+    "category": "Snacks",
+    "tag": "Ultracongelado + Vacío",
+    "badge": null
+  },
+  {
+    "id": "papas-fritas",
+    "name": "Papas Fritas Gourmet",
+    "description": "Papas cortadas gruesas, precocidas y listas para freír. Crujientes por fuera, suaves por dentro.",
+    "price": 5490,
+    "wholesalePrice": 4670,
+    "image": "/images/PROCESS_2.webp",
+    "image400": "/images/PROCESS_2-400.webp",
+    "category": "Snacks",
+    "tag": "Ultracongelado + Vacío",
+    "badge": null
+  },
+  {
+    "id": "cheese-sticks",
+    "name": "Cheese Sticks",
+    "description": "Bastones de queso mozzarella empanizados, crujientes y con el queso estirando al morder.",
+    "price": 6490,
+    "wholesalePrice": 5520,
+    "image": "/images/PROCESS_3.webp",
+    "image400": "/images/PROCESS_3-400.webp",
+    "category": "Snacks",
+    "tag": "Ultracongelado + Vacío",
+    "badge": "Nuevo"
+  },
+  {
+    "id": "carne-macerada",
+    "name": "Carne Macerada Premium",
+    "description": "Corte de vacuno macerado con hierbas, ajo y aceite de oliva. Lista para cocinar directo del freezer.",
+    "price": 14990,
+    "wholesalePrice": 12740,
+    "image": "/images/PROCESS_MIX.webp",
+    "image400": "/images/PROCESS_MIX-400.webp",
+    "category": "Macerados",
+    "tag": "Ultracongelado + Vacío",
+    "badge": "Macerado"
+  },
+  {
+    "id": "pescado-macerado",
+    "name": "Pescado Macerado",
+    "description": "Filete de pescado macerado con limón, eneldo y especias. Sabor fresco conservado al vacío.",
+    "price": 13990,
+    "wholesalePrice": 11890,
+    "image": "/images/PROCESS_MIX.webp",
+    "image400": "/images/PROCESS_MIX-400.webp",
+    "category": "Macerados",
+    "tag": "Ultracongelado + Vacío",
+    "badge": "Macerado"
+  }
+]

@@ -9,52 +9,71 @@
   <div class="flex justify-between items-center px-5 md:px-16 h-14 max-w-[1280px] mx-auto">
     <!-- Logo -->
     <a href="#inicio" class="text-lg leading-none">
-      <span class="logo-text">DEEP FROZEN</span>
+      <span class="logo-text">DEEPFROZEN</span>
     </a>
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex gap-6 items-center font-body-sm text-body-sm">
       <a
-        href="#inicio"
+        href="/#inicio"
         data-nav
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Inicio
       </a>
       <a
-        href="#beneficios"
+        href="/#beneficios"
         data-nav
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Beneficios
       </a>
       <a
-        href="#productos"
-        data-nav
+        href="/menu"
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
-        Productos
+        Menú
       </a>
       <a
-        href="#proceso"
+        href="/#proceso"
         data-nav
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Proceso
       </a>
       <a
-        href="#testimonios"
+        href="/#mision"
+        data-nav
+        class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
+      >
+        Misión
+      </a>
+      <a
+        href="/#testimonios"
         data-nav
         class="nav-link text-on-surface-variant hover:text-ice-cyan transition-colors hover:scale-105 duration-200"
       >
         Testimonios
       </a>
       <a
-        href="#contacto"
+        href="/#contacto"
         class="bg-warm-copper text-deep-navy font-body-sm px-4 py-1.5 rounded gourmet-btn"
       >
         Contacto
       </a>
+
+      <!-- Cart icon -->
+      <button
+        id="cart-icon-btn"
+        class="relative text-on-surface-variant hover:text-ice-cyan transition-colors ml-2"
+        aria-label="Abrir carrito"
+      >
+        <span class="material-symbols-outlined text-xl">shopping_cart</span>
+        <span
+          id="cart-badge"
+          class="absolute -top-1.5 -right-1.5 bg-warm-copper text-deep-navy text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center hidden"
+        >0</span>
+      </button>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -73,18 +92,27 @@
     class="mobile-nav fixed top-14 left-0 w-full bg-surface/95 backdrop-blur-md border-b border-ice-cyan/20 z-50 flex flex-col md:hidden"
   >
     <div class="flex flex-col px-5 py-4 gap-1">
-      <a href="#inicio" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Inicio</a>
-      <a href="#beneficios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Beneficios</a>
-      <a href="#productos" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Productos</a>
-      <a href="#proceso" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Proceso</a>
-      <a href="#testimonios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Testimonios</a>
+      <a href="/#inicio" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Inicio</a>
+      <a href="/#beneficios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Beneficios</a>
+      <a href="/menu" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Menú</a>
+      <a href="/#proceso" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Proceso</a>
+      <a href="/#mision" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Misión</a>
+      <a href="/#testimonios" class="mobile-link text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors" data-mobile-link>Testimonios</a>
       <a
-        href="#contacto"
+        href="/#contacto"
         class="bg-warm-copper text-deep-navy font-body-md py-2.5 rounded gourmet-btn text-center mt-2 tracking-wide uppercase"
         data-mobile-link
       >
         Contacto
       </a>
+      <!-- Mobile cart button -->
+      <button
+        id="mobile-cart-btn"
+        class="flex items-center justify-center gap-2 text-frost-white text-base font-body-md py-2.5 hover:text-ice-cyan transition-colors mt-1"
+      >
+        <span class="material-symbols-outlined text-xl">shopping_cart</span>
+        Carrito
+      </button>
     </div>
   </div>
 </nav>
@@ -113,6 +141,12 @@
     });
   });
 
+  // Mobile cart button
+  document.getElementById('mobile-cart-btn')?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('open');
+    document.getElementById('cart-icon-btn')?.click();
+  });
+
   // Active link highlighting via IntersectionObserver (no forced reflow)
   const sections = document.querySelectorAll('section[id], header[id]');
   const navLinks = document.querySelectorAll('.nav-link[data-nav]');
@@ -126,7 +160,7 @@
         }
       });
       navLinks.forEach((link) => {
-        const href = link.getAttribute('href')?.replace('#', '') || '';
+        const href = link.getAttribute('href')?.replace('/#', '').replace('#', '') || '';
         if (href === currentId) {
           link.classList.add('text-warm-copper', 'font-bold', 'border-b-2', 'border-warm-copper', 'pb-1');
           link.classList.remove('text-on-surface-variant');

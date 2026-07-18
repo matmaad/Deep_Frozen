@@ -1,0 +1,181 @@
+---
+// Menu products grid — reads from products.json
+import products from '../data/products.json';
+
+const BULK_THRESHOLD = 100000;
+
+function formatPrice(price: number): string {
+  return '$' + price.toLocaleString('es-CL');
+}
+---
+
+<section class="pt-24 pb-12 bg-deep-navy min-h-screen">
+  <div class="max-w-[1280px] mx-auto px-5 md:px-16">
+    <div class="text-center mb-8">
+      <h1 class="font-headline-lg text-headline-lg text-frost-white mb-3">
+        Nuestro Menú
+      </h1>
+      <p class="font-body-lg text-body-lg text-pale-blue max-w-2xl mx-auto">
+        Explora toda nuestra variedad de productos ultracongelados. Compras superiores a $100.000 aplican con <span class="text-ice-cyan font-semibold">precios por mayor</span>.
+      </p>
+    </div>
+
+    <!-- Category filter -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8" id="category-filters">
+      <button data-category="all" class="category-btn active px-4 py-1.5 rounded-full text-sm font-body-sm border border-ice-cyan/30 text-ice-cyan bg-ice-cyan/10 hover:bg-ice-cyan/20 transition-colors">
+        Todos
+      </button>
+      <button data-category="Bakery" class="category-btn px-4 py-1.5 rounded-full text-sm font-body-sm border border-ice-cyan/30 text-pale-blue hover:bg-ice-cyan/10 transition-colors">
+        Bakery
+      </button>
+      <button data-category="Snacks" class="category-btn px-4 py-1.5 rounded-full text-sm font-body-sm border border-ice-cyan/30 text-pale-blue hover:bg-ice-cyan/10 transition-colors">
+        Snacks
+      </button>
+      <button data-category="Macerados" class="category-btn px-4 py-1.5 rounded-full text-sm font-body-sm border border-ice-cyan/30 text-pale-blue hover:bg-ice-cyan/10 transition-colors">
+        Macerados
+      </button>
+    </div>
+
+    <!-- Products grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="products-grid">
+      {products.map((product) => (
+        <div class="product-card group relative bg-transparent rounded-xl overflow-hidden" data-category={product.category}>
+          <div class="product-card-inner glass-frost absolute inset-0 rounded-xl z-0"></div>
+          <div class="relative z-10 p-3 flex flex-col h-full">
+            <!-- Image -->
+            <div class="overflow-hidden rounded-lg mb-3 aspect-[16/10] bg-surface-dim relative">
+              <img
+                src={product.image}
+                srcset={`${product.image400} 400w, ${product.image} 800w`}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                alt={product.name}
+                width="800"
+                height="500"
+                class="w-full h-full object-cover product-img"
+                loading="lazy"
+              />
+              {product.badge && (
+                <span class="absolute top-2 left-2 bg-warm-copper text-deep-navy font-label-caps text-label-caps px-2 py-0.5 rounded-full uppercase">
+                  {product.badge}
+                </span>
+              )}
+            </div>
+
+            <!-- Tag -->
+            <span class="bg-ice-cyan/10 text-ice-cyan font-label-caps text-label-caps px-3 py-1 rounded-full mb-2 uppercase self-start">
+              {product.tag}
+            </span>
+
+            <!-- Title -->
+            <h3 class="font-headline-sm text-headline-sm text-frost-white mb-1">
+              {product.name}
+            </h3>
+
+            <!-- Description -->
+            <p class="font-body-sm text-body-sm text-pale-blue mb-3 flex-grow">
+              {product.description}
+            </p>
+
+            <!-- Price -->
+            <div class="mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-warm-copper font-semibold text-lg price-retail" data-price={product.price}>{formatPrice(product.price)}</span>
+                <span class="text-pale-blue/50 text-sm">/unidad</span>
+              </div>
+              <div class="text-ice-cyan/70 text-sm mt-0.5 price-wholesale-row">
+                Por mayor: <span class="text-ice-cyan font-semibold price-wholesale" data-price={product.wholesalePrice}>{formatPrice(product.wholesalePrice)}</span>
+                <span class="text-ice-cyan/50 text-xs"> (+$100.000 al por mayor)</span>
+              </div>
+            </div>
+
+            <!-- Add to cart button -->
+            <button
+              class="add-to-cart-btn w-full bg-warm-copper text-deep-navy font-body-sm py-2 rounded gourmet-btn mt-auto text-center cursor-pointer flex items-center justify-center gap-2"
+              data-product-id={product.id}
+              data-product-name={product.name}
+              data-product-price={product.price}
+              data-product-wholesale={product.wholesalePrice}
+              data-product-image={product.image}
+            >
+              <span class="material-symbols-outlined text-xl">add_shopping_cart</span>
+              Agregar
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const BULK_THRESHOLD = 100000;
+
+  // Category filter
+  const filterBtns = document.querySelectorAll('.category-btn');
+  const cards = document.querySelectorAll('.product-card[data-category]');
+
+  // Check URL for pre-selected category
+  const params = new URLSearchParams(window.location.search);
+  const initialCategory = params.get('category') || 'all';
+
+  function applyFilter(category: string) {
+    filterBtns.forEach((b) => {
+      b.classList.remove('active', 'bg-ice-cyan/10', 'text-ice-cyan');
+      b.classList.add('text-pale-blue');
+    });
+    const activeBtn = document.querySelector(`.category-btn[data-category="${category}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active', 'bg-ice-cyan/10', 'text-ice-cyan');
+      activeBtn.classList.remove('text-pale-blue');
+    }
+
+    cards.forEach((card) => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyFilter(btn.getAttribute('data-category') || 'all');
+    });
+  });
+
+  // Apply initial filter from URL
+  applyFilter(initialCategory);
+
+  // Add to cart
+  document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-product-id');
+      const name = btn.getAttribute('data-product-name');
+      const price = Number(btn.getAttribute('data-product-price'));
+      const wholesalePrice = Number(btn.getAttribute('data-product-wholesale'));
+      const image = btn.getAttribute('data-product-image');
+
+      const cart = JSON.parse(localStorage.getItem('deepfrozen-cart') || '[]');
+      const existing = cart.find((item) => item.id === id);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, name, price, wholesalePrice, image, quantity: 1 });
+      }
+
+      localStorage.setItem('deepfrozen-cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('cart-updated'));
+
+      // Button feedback
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-xl">check</span> Agregado';
+      btn.classList.add('bg-green-600');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('bg-green-600');
+      }, 1200);
+    });
+  });
+</script>

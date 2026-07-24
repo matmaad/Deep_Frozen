@@ -118,7 +118,7 @@ section[id], header[id] {
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(13, 27, 42, 0.7);
+  background: rgba(13, 27, 42, 0.3);
   z-index: 1;
 }
 
